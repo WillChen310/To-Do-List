@@ -1,0 +1,35 @@
+<div class="container">
+  <table class="table table-striped table-condensed table-hover">
+    <h1>To-Do List</h1>
+    <tr>
+      <td>Status</td>
+      <td>Item</td>
+      <td>Due Date</td>
+      <td>Details</td>
+      <td>Delete</td>
+    </tr>
+    <% @todos.each do |todo| %>
+      <tr>
+        <% if todo.due_date  < Date.today%>
+          <td> <%= check_box_tag('todo.title','todo.title',todo.checkbox,disabled: true) %></td>
+          <td> <%= label_tag(todo.checkbox,todo.title) %> </td>
+          <td> <%= todo.due_date %> </td>
+          <td> <%= link_to 'Show',todo_path(todo) %> </td>
+          <td>Expired</td>
+        <% else %>
+          <td> <%= check_box_tag :checkbox , true , todo.checkbox , data: { url: check_todo_path(todo),method: :post, remote: true} %></td>
+          <td> <%= label_tag(todo.checkbox,todo.title) %> </td>
+          <td> <%= todo.due_date %> </td>
+          <td> <%= link_to 'Show',todo_path(todo) %> </td>
+          <td> 
+            <%= link_to todo_path(todo), method: :delete, data:{ confirm: "Are you sure?"} do %> 
+              <span class="glyphicon glyphicon-remove"></span>
+            <% end %>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </table>
+
+  <%= link_to 'New Item', new_todo_path %>
+</div>

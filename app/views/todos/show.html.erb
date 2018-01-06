@@ -1,0 +1,7 @@
+<%= @todo.title %><br/>
+<%= @todo.due_date %>
+<%= simple_format(@todo.description) %>
+
+<p><%= link_to 'Edit',edit_todo_path %></p>
+
+<p><%= link_to 'Back to index',todos_path %></p>
