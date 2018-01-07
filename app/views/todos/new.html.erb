@@ -1,1 +1,5 @@
 <%= render :partial => "form" %>
+
+<!-- 你使用了render指令，意即接下來 Rails 會去找 .html.erb 的檔案，他會優先在 views 的當前路徑下尋找對應的 template -->
+<!-- 再來，你指定的參數是 partial，所以 Rails 知道要去找用底線開頭的名稱 -->
+<!-- 最後，你指定了 form 這個名稱，所以 Rails 就會去 render _form.html.erb 這個檔案裡面的內容。 -->
