@@ -1,4 +1,16 @@
+
+
 <div class="form container">
+  <% if @todo.errors.present? %>
+  <ul>
+    <% @todo.errors.each do |error, message| %>
+      <li> <%= "#{error.capitalize}  #{message}" %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<!-- 首先是 Ruby 的部分，程式碼的最外層用if...end 包圍住 HTML 元素，意思是，如果 if 的條件式成立，才去把 HTML 內容顯示出來。而 if 的條件寫成 @todo.errors.present?，意思是「@todo 帶有錯誤訊息」——當@todo跑到 Todo model 時，若驗證不通過，validates_presence_of會把錯誤資訊塞回@todo，存進.errors方法。所以如果.errors裡面有存東西，就表示驗證不通過。 -->
+<!-- 接下來就把.errors的資料一筆筆讀出來，在 Ruby 裡，「一筆筆讀資料」會用 .each方法來做。把讀出來的資料塞進 <li></li>裡，就會跑出一個個清單項目。 -->
   <%= form_for @todo do |f| %>
     <div class="form-group">    
       <%= f.label :title, "Title" %>

@@ -11,10 +11,11 @@ class TodosController < ApplicationController
 
   def create
     @todo = Todo.new(todo_params)
-    @todo.save
-
-    redirect_to todos_url
-    
+    if @todo.save
+      redirect_to todos_url
+    else
+      render :action => :new
+    end
   end
 
   def show
@@ -29,9 +30,12 @@ class TodosController < ApplicationController
 
   def update
     @todo=Todo.find(params[:id])
-    @todo.update_attributes(todo_params)
+    if @todo.update_attributes(todo_params)
 
-    redirect_to todo_url(@todo)
+      redirect_to todo_url(@todo)
+    else
+      render :action => :edit
+    end
   end
 
   def destroy
@@ -48,10 +52,10 @@ class TodosController < ApplicationController
     
   end
 private
-
-def todo_params
-  params.require(:todo).permit(:title,:due_date,:description)
   
-end
+  def todo_params
+    params.require(:todo).permit(:title,:due_date,:description)
+  
+  end
 
 end
